@@ -122,7 +122,8 @@ poke/
     │   │   ├── button.tsx
     │   │   └── card.tsx
     │   ├── Header.tsx                # Site header
-    │   └── Footer.tsx                # Site footer
+    │   ├── Footer.tsx                # Site footer
+    |   └── ...                       # Other brand new components / overrides of shadcn/ui components
     │
     ├── features/                     # Domain-specific logic and components
     │   └── pokemon/
@@ -136,11 +137,11 @@ poke/
     │       │   ├── SearchForm.tsx        # Search input and button (Client)
     │       │   └── Pagination.tsx        # Next/Prev buttons (Client)
     │       │
-    │       ├── services/
-    │       │   └── pokeapi.service.ts  # Logic to interact with pokenode-ts SDK
+    │       ├── pokeapi.hooks.ts  # Hooks related to Pokémon's components
     │       │
-    │       └── types/
-    │           └── pokemon.types.ts    # Custom or extended types for Pokémon data
+    │       ├── pokeapi.service.ts  # Logic to interact with pokenode-ts SDK
+    │       │
+    │       └── pokemon.types.ts    # Custom or extended types for Pokémon data
     │
     └── lib/                            # Utility functions
         └── utils.ts                    # General helper functions (e.g., capitalize)
@@ -157,7 +158,7 @@ poke/
 
 ### 2. API Service Layer:
 
-- In src/features/pokemon/services/pokeapi.service.ts, create functions to wrap the pokenode-ts client.
+- In src/features/pokemon/pokeapi.service.ts, create functions to wrap the pokenode-ts client.
 - Example functions: getPokemonList(offset, limit), getPokemonByName(name). This layer allows me to handle caching logic or data transformation in one place.
 
 ### 3. Home Page - Pokémon List:
