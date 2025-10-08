@@ -7,19 +7,19 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 
 const DEFAULT_LIMITS = [10, 20, 30, 50, 100];
 
-export default function OffsetPagination({ defaultLimit, totalElements, customLimits }: { defaultLimit: number, totalElements: number, customLimits?: number[] }) {
+export default function OffsetPagination({ offsetParamName = 'offset', limitParamName = 'limit', defaultLimit, totalElements, customLimits }: { offsetParamName?: string, limitParamName?: string, defaultLimit: number, totalElements: number, customLimits?: number[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentOffset = Number(searchParams.get('offset')) || 1;
-  const currentLimit = Number(searchParams.get('limit')) || defaultLimit;
+  const currentOffset = Number(searchParams.get(offsetParamName)) || 1;
+  const currentLimit = Number(searchParams.get(limitParamName)) || defaultLimit;
 
   const limits = customLimits && customLimits.length > 0 ? customLimits : DEFAULT_LIMITS;
 
   const createPageURL = (newOffset: number, newLimit: number) => {
     const params = new URLSearchParams(searchParams);
-    params.set('offset', newOffset.toString());
-    params.set('limit', newLimit.toString());
+    params.set(offsetParamName, newOffset.toString());
+    params.set(limitParamName, newLimit.toString());
     return `${pathname}?${params.toString()}`;
   };
 
@@ -35,7 +35,7 @@ export default function OffsetPagination({ defaultLimit, totalElements, customLi
   return (
     <div className='flex flex-col md:flex-row justify-between md:items-center flex-wrap gap-4'>
       <Select defaultValue={currentLimit.toString()} onValueChange={handleLimitChangeSelect}>
-        <SelectTrigger>
+        <SelectTrigger className='w-full md:w-auto'>
           <SelectValue placeholder="Limit">Limit: {currentLimit}</SelectValue>
         </SelectTrigger>
         <SelectContent>
