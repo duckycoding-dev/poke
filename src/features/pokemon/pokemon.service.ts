@@ -7,3 +7,7 @@ export const getPokemonList = async (offset: number, limit: number) => {
   const res = await client.listPokemons(offset, limit);
   return res.results;
 };
+
+export const getPokemonByName = async (name: string) => {
+  return client.getPokemonByName(name);
+}
